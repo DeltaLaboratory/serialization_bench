@@ -5,6 +5,13 @@ sh resources/recv_files.sh
 go test -bench=/ -benchmem
 ```
 ## result
+goos: windows\
+goarch: amd64\
+pkg: serialization_bench\
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U\
+32GiB RAM / DDR5 6000MHz
+
+
 | Benchmark                                                  | Iterations | Time per Iteration (ns/op) | MB/s    | Memory (B/op) | Memory Allocations (allocs/op) |
 |------------------------------------------------------------|------------|----------------------------|---------|---------------|--------------------------------|
 | BenchmarkBSON/mongo-go-driver/bson/reddit-12               | 6404       | 225152                     | 567.80  | 131072        | 1                              |
