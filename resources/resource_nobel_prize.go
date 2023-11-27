@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 )
 
-//go:embed novel_prize.json
-var novelPrizeJSON []byte
+//go:embed nobel_prize.json
+var nobelPrizeJSON []byte
 
-type NovelPrize struct {
+type NobelPrize struct {
 	Prizes []struct {
 		Year      string `json:"year"`
 		Category  string `json:"category"`
@@ -23,9 +23,9 @@ type NovelPrize struct {
 	} `json:"prizes"`
 }
 
-func LoadResourceNovelPrize() *NovelPrize {
-	var result NovelPrize
-	err := json.Unmarshal(novelPrizeJSON, &result)
+func LoadResourceNobelPrize() *NobelPrize {
+	var result NobelPrize
+	err := json.Unmarshal(nobelPrizeJSON, &result)
 	if err != nil {
 		panic(err)
 	}

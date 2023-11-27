@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 )
 
-//go:embed reddit_all.json
-var ResourceRedditAll []byte
+//go:embed reddit.json
+var ResourceRedditJSON []byte
 
 type ResourceReddit struct {
 	Kind string `json:"kind"`
@@ -82,7 +82,7 @@ type ResourceReddit struct {
 				IsCreatedFromAdsUi  bool        `json:"is_created_from_ads_ui"`
 				AuthorPremium       bool        `json:"author_premium"`
 				Thumbnail           string      `json:"thumbnail"`
-				Edited              bool        `json:"edited"`
+				Edited              interface{} `json:"edited"`
 				AuthorFlairCssClass *string     `json:"author_flair_css_class"`
 				AuthorFlairRichtext []struct {
 					A string `json:"a,omitempty"`
@@ -96,7 +96,7 @@ type ResourceReddit struct {
 				ContentCategories   []string    `json:"content_categories"`
 				IsSelf              bool        `json:"is_self"`
 				ModNote             interface{} `json:"mod_note"`
-				Created             int         `json:"created"`
+				Created             float64     `json:"created"`
 				LinkFlairType       string      `json:"link_flair_type"`
 				Wls                 *int        `json:"wls"`
 				RemovedByCategory   interface{} `json:"removed_by_category"`
@@ -167,7 +167,7 @@ type ResourceReddit struct {
 				Stickied                 bool          `json:"stickied"`
 				Url                      string        `json:"url"`
 				SubredditSubscribers     int           `json:"subreddit_subscribers"`
-				CreatedUtc               int           `json:"created_utc"`
+				CreatedUtc               float64       `json:"created_utc"`
 				NumCrossposts            int           `json:"num_crossposts"`
 				Media                    *struct {
 					RedditVideo struct {
@@ -201,7 +201,7 @@ type ResourceReddit struct {
 
 func LoadResourceReddit() *ResourceReddit {
 	var resourceReddit ResourceReddit
-	err := json.Unmarshal(ResourceRedditAll, &resourceReddit)
+	err := json.Unmarshal(ResourceRedditJSON, &resourceReddit)
 	if err != nil {
 		panic(err)
 	}

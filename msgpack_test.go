@@ -7,6 +7,7 @@ import (
 
 import (
 	hashicorp "github.com/hashicorp/go-msgpack/codec"
+	shamaton "github.com/shamaton/msgpack/v2"
 	vmihailencov5 "github.com/vmihailenco/msgpack/v5"
 )
 
@@ -19,6 +20,25 @@ func BenchmarkMSGPACK(b *testing.B) {
 				var err error
 				for i := 0; i < b.N; i++ {
 					result, err = vmihailencov5.Marshal(v)
+					if err != nil {
+						b.Fatal(err)
+					}
+					b.SetBytes(int64(len(result)))
+					serializedSize = len(result)
+				}
+			})
+			b.Logf("vmihailenco/msgpack/v5: %s: %s", k, formatByteSize(serializedSize))
+		}
+	})
+
+	b.Run("shamaton/msgpack/v2", func(b *testing.B) {
+		for k, v := range TestResource {
+			var serializedSize int
+			b.Run(k, func(b *testing.B) {
+				var result []byte
+				var err error
+				for i := 0; i < b.N; i++ {
+					result, err = shamaton.Marshal(v)
 					if err != nil {
 						b.Fatal(err)
 					}
@@ -51,4 +71,5 @@ func BenchmarkMSGPACK(b *testing.B) {
 			b.Logf("hashicorp/go-msgpack/codec: %s: %s", k, formatByteSize(serializedSize))
 		}
 	})
+
 }
